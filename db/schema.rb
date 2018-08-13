@@ -10,13 +10,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_01_084139) do
+ActiveRecord::Schema.define(version: 2018_08_09_072453) do
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "members", force: :cascade do |t|
+    t.string "name"
+    t.integer "age"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "admin", default: "0"
+    t.string "account"
+    t.string "password"
+    t.string "token"
+  end
 
   create_table "tickets", force: :cascade do |t|
     t.string "name"
     t.string "code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "member_id"
+    t.integer "category_id"
+    t.index ["category_id"], name: "index_tickets_on_category_id"
+    t.index ["member_id"], name: "index_tickets_on_member_id"
   end
 
 end
